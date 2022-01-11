@@ -49,7 +49,6 @@ class PaginatedApartments {
 
 @Resolver()
 export class ApartmentResolver {
-    @UseMiddleware(isAuth)
     @Query(() => PaginatedApartments)
     async apartments(
         @Arg("limit", () => Int) limit: number,
@@ -131,7 +130,6 @@ export class ApartmentResolver {
                 `;
 
         const apartments = await getConnection().query(query, replacements);
-        console.log(apartments);
         return {
             apartments: apartments.slice(0, realLimit),
             hasMore: apartments.length === realLimitPlusOne,

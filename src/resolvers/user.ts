@@ -82,7 +82,6 @@ export class UserResolver {
         @Ctx() { req }: MyContext
     ): Promise<User | null> {
         const user = await User.findOne(req.session.userId);
-        console.log(input);
         if (user && user.role === "ADMIN") {
             const userToUpdate = await getConnection()
                 .createQueryBuilder()
@@ -120,7 +119,6 @@ export class UserResolver {
                 })
                 .returning("*")
                 .execute();
-            console.log("result", result);
             user = result.raw[0];
         } catch (err) {
             console.log(err);
